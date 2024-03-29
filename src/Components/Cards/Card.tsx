@@ -10,7 +10,7 @@ interface Props {
 const Card: React.FC<Props> = ({ companyName, ticker, price }: Props): JSX.Element => {
   return (
     <div className='card'>
-      <img src='https://addons.mozilla.org/user-media/previews/full/192/192605.png?modified=1622132519' alt='Image' />
+      <img src='https://www.unhcr.org/sites/default/files/legacy-images/626a9a044.jpg' alt='Image' />
       <div className='details'>
         <h2>{companyName} ({ticker})</h2>
         <p>${price}</p>
