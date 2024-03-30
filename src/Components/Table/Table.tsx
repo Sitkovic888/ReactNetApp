@@ -1,38 +1,21 @@
 import React from 'react'
 import { testIncomeStatementData } from './testData'
 
-const data = testIncomeStatementData;
+type Props = {
+  config: any;
+  data: any;
+}
 
-type Props = {}
-
-type Company = (typeof data)[0];
-
-const configs = [
-  {
-    label: 'Year',
-    render: (company: Company) => company.acceptedDate,
-  },
-  {
-    label: "Cost Of Revenue",
-    render: (company: Company) => company.costOfRevenue,
-  },
-]
-
-const Table = (props: Props) => {
-  const tdClassName = 'p-4 whitespace-nowrap text-sm font-normal text-gray-900';
-  const renderRows = data.map(c => {
+const Table = ({ config, data }: Props) => {
+  const renderRows = data.map((company : any) => {
     return (
-      <tr key={c.cik}>
-        {configs.map(v => {
-          return (
-            <td className={tdClassName}>{v.render(c)}</td>
-          )
-        })}
+      <tr key={company.cik}>
+        {config.map((v : any) => <td className='p-3'>{v.render(company)}</td>)}
       </tr>
     )
   })
 
-  const renderHeader = configs.map(c => {
+  const renderHeader = config.map((c : any) => {
     return (
       <th
         key={c.label}
@@ -45,10 +28,8 @@ const Table = (props: Props) => {
 
   return (
     <div className='bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8'>
-      <table>
-        <thead className='min-w-full divide-y divide=gray-200 m-5'>
-          {renderHeader}
-        </thead>
+      <table className='min-w-full divide-y divide=gray-200 m-5'>
+        <thead className='bg-gray-50'>{renderHeader}</thead>
         <tbody>{renderRows}</tbody>
       </table>
     </div>
