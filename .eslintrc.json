@@ -4,7 +4,24 @@
     "plugin:import/errors",
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript"
   ],
-  "plugins": ["react", "import", "jsx-a11y", "@typescript-eslint", "react-hooks"]
+  "plugins": [
+    "react",
+    "import",
+    "jsx-a11y",
+    "@typescript-eslint",
+    "react-hooks"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off"
+}
 }
