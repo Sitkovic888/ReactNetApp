@@ -14,6 +14,7 @@ export const handleError = (error: any) => {
       }
     } else {
       console.error(error);
+      toast.error(error.message);
     }
   }
 };
