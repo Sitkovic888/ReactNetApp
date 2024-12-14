@@ -4,6 +4,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserProvider } from "./Context/useAuth";
+import React from "react";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <UserProvider>
         <Navbar />
         <Outlet />
-        <ToastContainer />
+        <ToastContainer position="bottom-right"/>
       </UserProvider>
     </>
   );

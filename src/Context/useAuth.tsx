@@ -8,8 +8,8 @@ import axios from "axios";
 type UserContextType = {
   user: UserProfile | null;
   token: string | null;
-  registerUser: (email: string, userName: string, password: string) => void;
-  loginUser: (userName: string, password: string) => void;
+  registerUser: (email: string, userName: string, password: string) => Promise<void>;
+  loginUser: (userName: string, password: string) => Promise<void>;
   logoutUser: () => void;
   isLoggedIn: () => boolean;
 };
