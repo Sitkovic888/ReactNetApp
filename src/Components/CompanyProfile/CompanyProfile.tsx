@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { CompanyKeyMetrics } from "../../company";
 import { getKeyMetrics } from "../../api";
@@ -9,8 +9,6 @@ import {
   formatRatio,
 } from "../../Helpers/NumberFormatting";
 import StockComment from "../StockComment/StockComment";
-
-type Props = {};
 
 const tableConfig = [
   {
@@ -81,7 +79,7 @@ const tableConfig = [
   },
 ];
 
-const CompanyProfile = (props: Props) => {
+export default function CompanyProfile() : ReactElement {
   const ticker = useOutletContext<string>();
   const [companyData, setCompanyData] = useState<CompanyKeyMetrics>();
   useEffect(() => {
@@ -103,6 +101,4 @@ const CompanyProfile = (props: Props) => {
       )}
     </>
   );
-};
-
-export default CompanyProfile;
+}

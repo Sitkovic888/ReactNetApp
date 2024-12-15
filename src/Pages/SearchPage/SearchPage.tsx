@@ -1,7 +1,6 @@
-import React, { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { CompanySearch } from "../../company";
 import { searchCompanies } from "../../api";
-import Navbar from "../../Components/Navbar/Navbar";
 import Search from "../../Components/Search/Search";
 import ListPortfolio from "../../Components/Portfolio/ListPortfolio/ListPortfolio";
 import CardList from "../../Components/CardList/CardList";
@@ -12,9 +11,8 @@ import {
   getPortfolioApi,
 } from "../../Services/PortfolioService";
 import { toast } from "react-toastify";
-import AddPortfolio from "../../Components/Portfolio/AddPortfolio/AddPortfolio";
 
-const SearchPage = () => {
+const SearchPage = (): ReactElement => {
   const [portfolioValues, setPortfoliaValues] = useState<PortfolioGet[] | null>(
     []
   );
@@ -22,7 +20,13 @@ const SearchPage = () => {
   const [serverError, setServerError] = useState<string>("");
 
   const handleSearchChange = async (searchQuery: string) => {
-    const result = await searchCompanies(searchQuery);
+    const isEmpty = !searchQuery.trim();
+    if (isEmpty) {
+      setSearchResult([]);
+      return;
+    }
+
+    const result = await searchCompanies(searchQuery.trim());
     if (typeof result == "string") {
       setServerError(result);
     } else if (Array.isArray(result.data)) {
@@ -75,9 +79,7 @@ const SearchPage = () => {
 
   return (
     <>
-      <Search
-        handleSearchChange={handleSearchChange}
-      />
+      <Search handleSearchChange={handleSearchChange} />
       <ListPortfolio
         portfolioValues={portfolioValues!}
         onPortfolioDelete={onPortfolioDelete}
