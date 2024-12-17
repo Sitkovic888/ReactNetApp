@@ -1,16 +1,20 @@
-import React, { SyntheticEvent } from 'react'
-import './Card.css'
-import { CompanySearch } from '../../company';
-import AddPortfolio from '../Portfolio/AddPortfolio/AddPortfolio';
-import { Link } from 'react-router-dom';
+import React, { SyntheticEvent } from "react";
+import "./Card.css";
+import { CompanySearchItem } from "../../company";
+import AddPortfolio from "../Portfolio/AddPortfolio/AddPortfolio";
+import { Link } from "react-router-dom";
 
 interface Props {
   id: string;
-  searchResult: CompanySearch;
+  searchResult: CompanySearchItem;
   onPortfolioCreate: (e: SyntheticEvent) => void;
 }
 
-const Card: React.FC<Props> = ({ id, searchResult, onPortfolioCreate }: Props): JSX.Element => {
+const Card: React.FC<Props> = ({
+  id,
+  searchResult,
+  onPortfolioCreate,
+}: Props): JSX.Element => {
   const symbol = searchResult.symbol;
   return (
     <div
@@ -31,9 +35,10 @@ const Card: React.FC<Props> = ({ id, searchResult, onPortfolioCreate }: Props): 
       <AddPortfolio
         onPortfolioCreate={onPortfolioCreate}
         symbol={symbol}
+        isDisabled={searchResult.disabled}
       />
     </div>
-  )
-}
+  );
+};
 
 export default Card;

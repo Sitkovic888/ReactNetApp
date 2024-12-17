@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from "react";
-import { CompanySearch } from "../../company";
+import { CompanySearchItem } from "../../company";
 import { searchCompanies } from "../../api";
 import Search from "../../Components/Search/Search";
 import ListPortfolio from "../../Components/Portfolio/ListPortfolio/ListPortfolio";
@@ -16,7 +16,7 @@ const SearchPage = (): ReactElement => {
   const [portfolioValues, setPortfoliaValues] = useState<PortfolioGet[] | null>(
     []
   );
-  const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
+  const [searchResult, setSearchResult] = useState<CompanySearchItem[]>([]);
   const [serverError, setServerError] = useState<string>("");
 
   const handleSearchChange = async (searchQuery: string) => {
@@ -30,7 +30,22 @@ const SearchPage = (): ReactElement => {
     if (typeof result == "string") {
       setServerError(result);
     } else if (Array.isArray(result.data)) {
-      setSearchResult(result.data);
+      setSearchResult(
+        result.data.map((i) => {
+          if (
+            portfolioValues?.find(
+              (p) => p.symbol.toLowerCase() === i.symbol.toLowerCase()
+            )
+          ) {
+            return {
+              ...i,
+              disabled: true,
+            };
+          }
+          console.log("i", i);
+          return i;
+        })
+      );
     }
   };
 
@@ -81,7 +96,7 @@ const SearchPage = (): ReactElement => {
     <>
       <Search handleSearchChange={handleSearchChange} />
       <ListPortfolio
-        portfolioValues={portfolioValues!}
+        portfolioValues={portfolioValues ?? []}
         onPortfolioDelete={onPortfolioDelete}
       />
       <CardList

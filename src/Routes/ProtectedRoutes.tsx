@@ -1,10 +1,10 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Navigate, useLocation } from "react-router";
 import { useAuth } from "../Context/useAuth";
 
 type Props = { children: React.ReactNode };
 
-const ProtectedRoutes = ({ children }: Props) => {
+export default function ProtectedRoutes({ children }: Props): ReactElement {
   const location = useLocation();
   const { isLoggedIn } = useAuth();
   return isLoggedIn() ? (
@@ -12,6 +12,4 @@ const ProtectedRoutes = ({ children }: Props) => {
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />
   );
-};
-
-export default ProtectedRoutes;
+}

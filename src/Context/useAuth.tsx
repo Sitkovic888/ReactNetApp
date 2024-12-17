@@ -1,4 +1,10 @@
-import React, { ReactNode, createContext, useEffect, useState } from "react";
+import React, {
+  ReactElement,
+  ReactNode,
+  createContext,
+  useEffect,
+  useState,
+} from "react";
 import { UserProfile, UserProfileToken } from "../Models/User";
 import { useNavigate } from "react-router";
 import { loginApi, registerApi } from "../Services/AuthService";
@@ -8,7 +14,11 @@ import axios from "axios";
 type UserContextType = {
   user: UserProfile | null;
   token: string | null;
-  registerUser: (email: string, userName: string, password: string) => Promise<void>;
+  registerUser: (
+    email: string,
+    userName: string,
+    password: string
+  ) => Promise<void>;
   loginUser: (userName: string, password: string) => Promise<void>;
   logoutUser: () => void;
   isLoggedIn: () => boolean;
@@ -18,7 +28,7 @@ type Props = { children: ReactNode };
 
 const userContext = createContext<UserContextType>({} as UserContextType);
 
-export const UserProvider = ({ children }: Props) => {
+export const UserProvider = ({ children }: Props): ReactElement => {
   const navigate = useNavigate();
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
@@ -111,4 +121,4 @@ export const UserProvider = ({ children }: Props) => {
   );
 };
 
-export const useAuth = () => React.useContext(userContext)
+export const useAuth = (): UserContextType => React.useContext(userContext);
